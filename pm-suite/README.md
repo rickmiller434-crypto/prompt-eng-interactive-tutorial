@@ -17,18 +17,20 @@ Most "AI for PM" tooling generates one-shot artifacts (a charter here, a status 
 
 ```
 pm-suite/
-  agents/                  # Claude subagent definitions (Phase 2+)
+  agents/                  # 11 Claude subagent definitions (pm-lead, pm-tailor, …)
+  commands/                # /pm-* slash commands for Claude Code
+  adapters/                # Storage adapters (local-markdown, notion, github-projects)
   intake/                  # Project intake & tailoring questionnaire
   principles/              # The 12 PM principles + auditor checks
-  models-methods/          # Tailoring, estimation, EVM, risk models (Phase 3+)
+  models-methods/          # Models, methods, heuristics (extensible)
   templates/
     initiating/            # Charter, business case, stakeholder register, ...
     planning/              # WBS, schedule, cost, risk, quality, comms, RAID, RACI, backlog, ...
     executing/             # Change requests, status reports, sprint plans, ...
     monitoring-controlling/# EVM, variance, risk burndown, velocity, CFD, ...
-    closing/               # Lessons learned, benefits realization, closure
-  projects/                # Per-project working artifacts (gitignored in real use)
-  examples/                # End-to-end worked example (Phase 5)
+    closing/               # Lessons learned, benefits realization, handover, closure
+  projects/                # Per-project working artifacts (includes worked example)
+  examples/                # Pointer to projects/acme-onboarding-revamp/
 ```
 
 ## Lifecycle support
@@ -39,14 +41,33 @@ Hybrid by default. Templates ship in two flavors where it matters — **predicti
 
 Artifacts are plain markdown under `projects/<project-name>/`. Later phases will add thin adapters to sync to Notion, GitHub Projects, or other systems of record without changing the agents.
 
-## Build phases
+## Build phases (all complete)
 
-1. **Phase 1 (this PR)** — Scaffold, 12 principles, tailoring intake.
-2. **Phase 2** — `pm-lead` orchestrator, `pm-tailor`, `pm-principles-auditor`.
-3. **Phase 3** — Initiating + Planning domain agents and their templates.
-4. **Phase 4** — Executing + Monitoring domain agents and their templates.
-5. **Phase 5** — Closing templates + end-to-end worked example.
-6. **Phase 6** — Storage adapters (Notion, GitHub Projects), `/pm-*` slash commands.
+1. ✅ **Phase 1** — Scaffold, 12 principles, tailoring intake.
+2. ✅ **Phase 2** — `pm-lead`, `pm-tailor`, `pm-principles-auditor`.
+3. ✅ **Phase 3** — Initiating + Planning agents (`pm-stakeholders`, `pm-team`, `pm-approach`, `pm-planning`) and their 16 templates.
+4. ✅ **Phase 4** — Executing + Monitoring agents (`pm-work`, `pm-delivery`, `pm-measurement`, `pm-uncertainty`) and their 14 templates.
+5. ✅ **Phase 5** — Closing templates and the end-to-end worked example (`projects/acme-onboarding-revamp/`).
+6. ✅ **Phase 6** — Storage adapters (`adapters/`) and `/pm-*` slash commands (`commands/`).
+
+## Getting started
+
+```bash
+# Activate the subagents and slash commands
+mkdir -p .claude/agents .claude/commands
+cp pm-suite/agents/*.md .claude/agents/
+cp pm-suite/commands/*.md .claude/commands/
+
+# In a Claude Code session in this repo, start a new project:
+# /pm-init my-new-project
+# (then fill out Sections A–H of the tailoring intake)
+# /pm-tailor my-new-project
+# /pm-status my-new-project   (later, once execution is underway)
+# /pm-audit my-new-project    (at phase gates)
+# /pm-close my-new-project    (at closure)
+```
+
+See `projects/acme-onboarding-revamp/README.md` for a full worked example.
 
 ## Source standard
 
