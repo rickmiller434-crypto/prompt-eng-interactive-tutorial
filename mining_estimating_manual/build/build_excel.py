@@ -722,13 +722,13 @@ ws.set_row(row, 22); ws.write(row,0,"Productivity factor (0.80–1.00)",f_text);
 
 # Calculated labour+equip per unit (using crew rate which is L+E combined per crew-hr)
 ws.set_row(row, 22); ws.write(row,0,"Crew cost per unit ($) [calculated]",f_text_b)
-ws.write_formula(row,1, f"=B{UMH_ROW}/B{PROD_ROW}*B{CREW_RATE_ROW}", f_calc); ws.write(row,2,"= Unit MH / Prod × Crew $/hr",f_text); CREW_COST_ROW=row+1; row+=1
+ws.write_formula(row,1, f"=B{UMH_ROW}/B{PROD_ROW}*B{CREW_RATE_ROW}", f_calc); ws.write_string(row,2,"= Unit MH / Prod × Crew $/hr",f_text); CREW_COST_ROW=row+1; row+=1
 
 # Material inputs
 ws.set_row(row, 22); ws.write(row,0,"Unit material cost ($)",f_text); ws.write_number(row,1,0.00,f_input); ws.write(row,2,"Supplied + delivered",f_text); MAT_ROW=row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"Material wastage (%)",f_text); ws.write_number(row,1,0.05,f_input); ws.write(row,2,"From Sheet 03 — 0% to 15% typical",f_text); WASTE_ROW=row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"Adjusted material cost ($) [calc]",f_text_b)
-ws.write_formula(row,1, f"=B{MAT_ROW}*(1+B{WASTE_ROW})", f_calc); ws.write(row,2,"= Mat × (1+wastage)",f_text); MAT_ADJ_ROW=row+1; row+=1
+ws.write_formula(row,1, f"=B{MAT_ROW}*(1+B{WASTE_ROW})", f_calc); ws.write_string(row,2,"= Mat × (1+wastage)",f_text); MAT_ADJ_ROW=row+1; row+=1
 
 # Subcontract
 ws.set_row(row, 22); ws.write(row,0,"Unit subcontract cost ($)",f_text); ws.write_number(row,1,0.00,f_input); ws.write(row,2,"Per sub quote; bare cost",f_text); SUB_ROW=row+1; row+=1
@@ -736,7 +736,7 @@ ws.set_row(row, 22); ws.write(row,0,"Unit subcontract cost ($)",f_text); ws.writ
 # CDI markup
 ws.set_row(row, 22); ws.write(row,0,"Contractor Distributable Indirect (CDI) %",f_text); ws.write_number(row,1,0.06,f_input); ws.write(row,2,"From Sheet 11 — 6-10% typical",f_text); CDI_ROW=row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"Subtotal direct + CDI ($) [calc]",f_text_b)
-ws.write_formula(row,1, f"=(B{CREW_COST_ROW}+B{MAT_ADJ_ROW}+B{SUB_ROW})*(1+B{CDI_ROW})", f_calc); ws.write(row,2,"= (Crew+Mat+Sub) × (1+CDI)",f_text); SUBTOT_ROW=row+1; row+=1
+ws.write_formula(row,1, f"=(B{CREW_COST_ROW}+B{MAT_ADJ_ROW}+B{SUB_ROW})*(1+B{CDI_ROW})", f_calc); ws.write_string(row,2,"= (Crew+Mat+Sub) × (1+CDI)",f_text); SUBTOT_ROW=row+1; row+=1
 
 # Design growth
 ws.set_row(row, 22); ws.write(row,0,"Design growth (Class 3 baseline) %",f_text); ws.write_number(row,1,0.10,f_input); ws.write(row,2,"From Sheet 03 — 2-20% by class",f_text); DG_ROW=row+1; row+=1
@@ -747,7 +747,7 @@ ws.set_row(row, 22); ws.write(row,0,"Regional adjustor (e.g. 1.10)",f_text); ws.
 # Final unit rate
 ws.set_row(row, 26)
 ws.write(row,0,"FINAL UNIT RATE BEFORE MARKUP STACK ($) [calc]",f_text_b)
-ws.write_formula(row,1, f"=B{SUBTOT_ROW}*(1+B{DG_ROW})*B{REG_ROW}", f_calc); ws.write(row,2,"= Subtotal × (1+DG) × Regional adjustor",f_text); row+=1
+ws.write_formula(row,1, f"=B{SUBTOT_ROW}*(1+B{DG_ROW})*B{REG_ROW}", f_calc); ws.write_string(row,2,"= Subtotal × (1+DG) × Regional adjustor",f_text); row+=1
 
 row += 1
 ws.merge_range(row, 0, row, 7, "[TEMPLATE] This calculator builds a single direct unit rate. The 6-layer markup stack (OH, Bond/Ins, Contingency, Profit) is applied at project roll-up (Sheet 21). For Sheet 08 entries already include CDI in the LOW/HIGH columns. For subcontract-dominant work (e.g. blasting, liner) set Unit MH=0 and place sub quote in Subcontract row.", f_note)
@@ -1357,28 +1357,28 @@ ws.set_row(row, 20); ws.merge_range(row,0,row,3,"2 — CONTRACTOR FIELD INDIRECT
 ws.set_row(row, 22); ws.write(row,0,"2.1",f_text_c); ws.write(row,1,"CDI % of direct (input)",f_text)
 ws.write_number(row,2,0.15,f_input); ws.write(row,3,"Typical 12-18% Sheet 11/15",f_text); CDI_PCT_ROW = row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"",f_text_c); ws.write(row,1,"CDI AMOUNT",f_text_b)
-ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{CDI_PCT_ROW}",f_calc); ws.write(row,3,"= Direct × CDI %",f_text); CDI_AMT_ROW = row+1; row+=1
+ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{CDI_PCT_ROW}",f_calc); ws.write_string(row,3,"= Direct × CDI %",f_text); CDI_AMT_ROW = row+1; row+=1
 
 # Company OH
 ws.set_row(row, 20); ws.merge_range(row,0,row,3,"3 — COMPANY OVERHEAD",f_section); row+=1
 ws.set_row(row, 22); ws.write(row,0,"3.1",f_text_c); ws.write(row,1,"Company OH % of direct (input)",f_text)
 ws.write_number(row,2,0.08,f_input); ws.write(row,3,"Typical 6-12% Sheet 15",f_text); OH_PCT_ROW = row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"",f_text_c); ws.write(row,1,"COMPANY OH AMOUNT",f_text_b)
-ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{OH_PCT_ROW}",f_calc); ws.write(row,3,"= Direct × OH %",f_text); OH_AMT_ROW = row+1; row+=1
+ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{OH_PCT_ROW}",f_calc); ws.write_string(row,3,"= Direct × OH %",f_text); OH_AMT_ROW = row+1; row+=1
 
 # Bonding & Insurance (% of contract)
 ws.set_row(row, 20); ws.merge_range(row,0,row,3,"4 — BONDING & INSURANCE",f_section); row+=1
 ws.set_row(row, 22); ws.write(row,0,"4.1",f_text_c); ws.write(row,1,"Bond + Insurance % of contract (input)",f_text)
 ws.write_number(row,2,0.03,f_input); ws.write(row,3,"Typical 2-4% Sheet 12/15",f_text); BI_PCT_ROW = row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"",f_text_c); ws.write(row,1,"BOND + INSURANCE AMOUNT",f_text_b)
-ws.write_formula(row,2,f"=(C{DIRECT_ROW}+C{CDI_AMT_ROW}+C{OH_AMT_ROW})*C{BI_PCT_ROW}",f_calc); ws.write(row,3,"= (Direct + CDI + OH) × B+I %",f_text); BI_AMT_ROW = row+1; row+=1
+ws.write_formula(row,2,f"=(C{DIRECT_ROW}+C{CDI_AMT_ROW}+C{OH_AMT_ROW})*C{BI_PCT_ROW}",f_calc); ws.write_string(row,3,"= (Direct + CDI + OH) × B+I %",f_text); BI_AMT_ROW = row+1; row+=1
 
 # Contingency
 ws.set_row(row, 20); ws.merge_range(row,0,row,3,"5 — CONTINGENCY & RISK",f_section); row+=1
 ws.set_row(row, 22); ws.write(row,0,"5.1",f_text_c); ws.write(row,1,"Contingency % of direct (input)",f_text)
 ws.write_number(row,2,0.12,f_input); ws.write(row,3,"Typical 8-15% Sheet 15",f_text); CONT_PCT_ROW = row+1; row+=1
 ws.set_row(row, 22); ws.write(row,0,"",f_text_c); ws.write(row,1,"CONTINGENCY AMOUNT",f_text_b)
-ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{CONT_PCT_ROW}",f_calc); ws.write(row,3,"= Direct × Contingency %",f_text); CONT_AMT_ROW = row+1; row+=1
+ws.write_formula(row,2,f"=C{DIRECT_ROW}*C{CONT_PCT_ROW}",f_calc); ws.write_string(row,3,"= Direct × Contingency %",f_text); CONT_AMT_ROW = row+1; row+=1
 
 # Profit
 ws.set_row(row, 20); ws.merge_range(row,0,row,3,"6 — CONTRACTOR PROFIT",f_section); row+=1
@@ -1387,7 +1387,7 @@ ws.write_number(row,2,0.10,f_input); ws.write(row,3,"Typical 8-15% Sheet 15",f_t
 ws.set_row(row, 22); ws.write(row,0,"",f_text_c); ws.write(row,1,"PROFIT AMOUNT",f_text_b)
 ws.write_formula(row,2,
     f"=(C{DIRECT_ROW}+C{CDI_AMT_ROW}+C{OH_AMT_ROW}+C{BI_AMT_ROW}+C{CONT_AMT_ROW})*C{PROF_PCT_ROW}",
-    f_calc); ws.write(row,3,"= (Direct + CDI + OH + B+I + Cont.) × Profit %",f_text); PROF_AMT_ROW = row+1; row+=1
+    f_calc); ws.write_string(row,3,"= (Direct + CDI + OH + B+I + Cont.) × Profit %",f_text); PROF_AMT_ROW = row+1; row+=1
 
 # Total bid
 row += 1
