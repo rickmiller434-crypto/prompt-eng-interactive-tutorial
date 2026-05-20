@@ -23,12 +23,20 @@ New-Item -ItemType Directory -Force -Path $dst                         | Out-Nul
 New-Item -ItemType Directory -Force -Path "$dst\skills"                | Out-Null
 New-Item -ItemType Directory -Force -Path "$dst\templates\ausenco"     | Out-Null
 New-Item -ItemType Directory -Force -Path "$dst\scripts"               | Out-Null
+New-Item -ItemType Directory -Force -Path "$dst\projects\goldboro"     | Out-Null
+New-Item -ItemType Directory -Force -Path "$dst\projects\green-bay"    | Out-Null
+New-Item -ItemType Directory -Force -Path "$dst\projects\goderich"     | Out-Null
+New-Item -ItemType Directory -Force -Path "$dst\projects\kemess"       | Out-Null
 
 # Copy files
 Copy-Item -Force "$src\CLAUDE.md"                                   "$dst\CLAUDE.md"
 Copy-Item -Force "$src\skills\*"                                    "$dst\skills\"
 Copy-Item -Force "$src\templates\ausenco\*"                         "$dst\templates\ausenco\"
 Copy-Item -Force "$src\scripts\*.py"                                "$dst\scripts\"
+Copy-Item -Force "$src\projects\goldboro\*"                         "$dst\projects\goldboro\"
+Copy-Item -Force "$src\projects\green-bay\*"                        "$dst\projects\green-bay\"
+Copy-Item -Force "$src\projects\goderich\*"                         "$dst\projects\goderich\"
+Copy-Item -Force "$src\projects\kemess\*"                           "$dst\projects\kemess\"
 
 Write-Host "Installed files:" -ForegroundColor Green
 Get-ChildItem -Recurse $dst | ForEach-Object {

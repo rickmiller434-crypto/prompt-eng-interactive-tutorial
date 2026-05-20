@@ -20,12 +20,18 @@ echo "  Source: $SRC"
 echo "  Destination: $DST"
 echo
 
-mkdir -p "$DST/skills" "$DST/templates/ausenco" "$DST/scripts"
+mkdir -p "$DST/skills" "$DST/templates/ausenco" "$DST/scripts" \
+         "$DST/projects/goldboro" "$DST/projects/green-bay" \
+         "$DST/projects/goderich" "$DST/projects/kemess"
 
 cp -f "$SRC/CLAUDE.md"                                "$DST/CLAUDE.md"
 cp -f "$SRC/skills/"*                                 "$DST/skills/"
 cp -f "$SRC/templates/ausenco/"*                      "$DST/templates/ausenco/"
 cp -f "$SRC/scripts/"*.py                             "$DST/scripts/"
+cp -f "$SRC/projects/goldboro/"*                      "$DST/projects/goldboro/"
+cp -f "$SRC/projects/green-bay/"*                     "$DST/projects/green-bay/"
+cp -f "$SRC/projects/goderich/"*                      "$DST/projects/goderich/"
+cp -f "$SRC/projects/kemess/"*                        "$DST/projects/kemess/"
 chmod +x "$DST/scripts/fd_audit.py"
 
 echo "Installed files:"

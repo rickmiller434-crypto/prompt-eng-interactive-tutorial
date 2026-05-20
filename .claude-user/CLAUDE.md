@@ -130,7 +130,27 @@ different naming convention.
 | Ausenco workbook cover template | `~/.claude/templates/ausenco/template_workbook_cover.xlsx` |
 | 10-point audit checklist | `~/.claude/templates/ausenco/template_audit_checklist.md` |
 | FD audit checker script | `~/.claude/scripts/fd_audit.py` |
+| **Goldboro project context** | `~/.claude/projects/goldboro/PROJECT_CONTEXT.md` |
+| **Green Bay project context** | `~/.claude/projects/green-bay/PROJECT_CONTEXT.md` |
+| **Goderich project context** | `~/.claude/projects/goderich/PROJECT_CONTEXT.md` |
+| Kemess (stub — flagged not active) | `~/.claude/projects/kemess/PROJECT_CONTEXT.md` |
 | Source repo (backup) | github.com/rickmiller434-crypto/prompt-eng-interactive-tutorial |
+
+## Project context auto-load rule
+
+When a request mentions a specific project by name or job number, read the
+corresponding `~/.claude/projects/<project>/PROJECT_CONTEXT.md` file before
+producing output. The project context primes Claude with:
+- Exact job number and document number conventions
+- Owner / location / EPCM / climate / regulatory basis
+- Active deliverables and authors
+- Open flags with severity and resolution-required status
+- Default decomposition basis (Element 2 components ready to drop into memos)
+- Default filing path (Element 7)
+- Pre-qualified contractor pool
+- Anything project-specific that should pre-fill the templates
+
+If the request maps to multiple projects, load all relevant context files.
 
 ---
 
